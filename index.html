@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>task2</title>
+    <link href="lab1css.css" rel="stylesheet">
+    <style>
+
+  table{
+    margin: 10px auto;
+    border: solid;
+    height: 300px;
+    }
+
+span{
+font:bold 10px tahoma;
+text-align:center;
+color:red;
+display:none;
+}
+.error{
+border:2px solid red;
+}
+.succes{
+border:2px solid green;
+}
+input[type="text"]:focus, input[type="password"]:focus{
+outline:none;
+}
+</style>
+    </style>
+    <script>
+        window.addEventListener('load', function () {
+             
+            usertxtinput = document.getElementById('usertxtinput');
+            useremailinput = document.getElementById('useremailinput');
+            userhopit = document.querySelectorAll('input[type=checkbox]');
+            usertxtinput.focus();
+            spantxt = document.getElementById('spantxt');
+            spanemail = document.getElementById('spanemail');
+            spanhop = document.getElementById('spanhop');
+
+            
+            usertxtinput.addEventListener('blur', function () {
+                if (!isValidUserName()) {
+                    usertxtinput.focus();
+                    usertxtinput.select();
+                    spantxt.style.display = 'block';
+                    usertxtinput.className = 'error';
+                } else {
+                    usertxtinput.className = '';
+                    spantxt.style.display = 'none';
+                }
+
+            });
+
+
+            useremailinput.addEventListener('blur', function () {
+                if (!isValidUserEmail()) {
+                    useremailinput.focus();
+                    useremailinput.select();
+                    spanemail.style.display = 'block';
+                    useremailinput.className = 'error';
+                } else {
+                    useremailinput.className = '';
+                    spanemail.style.display = 'none';
+                }
+
+            });
+   
+            useremailinput.addEventListener('blur', function () {
+                if (!isValidhopit()) {
+                   
+                    spanhop.style.display = 'block';
+                    userhopit.className = 'error';
+                } else {
+                    userhopit.className = '';
+                    spanhop.style.display = 'none';
+                }
+
+            });
+           
+            document.forms[0].addEventListener('submit', function (e) {
+
+                if(!(isValidUserName()&&isValidUserEmail()&&isValidhopit()))
+                {
+                    e.preventDefault();
+                }
+                if(!isValidUserName())
+                {
+                    usertxtinput.focus();
+                    spantxt.style.display = 'block';
+                }
+
+                if (!isValidUserEmail()) {
+                    useremailinput.focus();
+                    spanemail.style.display = 'block';
+                }
+                if (!isValidhopit()) {
+                  
+                    spanhop.style.display = 'block';
+                }
+
+            });
+           
+            document.forms[0].addEventListener('reset', function (e) {
+                if(!confirm("Are Your Sure ?"))
+                {
+                    e.preventDefault();
+                    
+                } else {
+                    usertxtinput.focus();
+                }
+
+            });
+
+            cuntryfun()
+
+
+        });
+
+        function isValidUserName()
+        {
+            return usertxtinput.value.match(/^[A-Za-z]{6,8}$/);
+           
+        }
+
+        function isValidUserEmail()
+        {
+
+            return useremailinput.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+        }
+        function isValidhopit()
+        {
+           return Array.prototype.slice.call(userhopit).some(x => x.checked);
+        }
+        function cuntryfun(){
+
+            sup = document.getElementById("country");
+            field = document.getElementById("zip");
+        
+           return  field.value = sup.options[sup.selectedIndex].value;
+
+
+        }
+
+      
+
+    </script>
+</head>
+<body>
+    
+    
+  <div>
+      <table>
+
+        <form  method="get">
+        
+            <tr>
+                <td ><label>UserName : </label></td>
+                <td ><input type="text" id="usertxtinput"/><br>
+                <span id="spantxt">Not Correct User Name , letters only from 6 - 8 as length</span></td>
+            </tr>
+             <tr>
+                 <td><label>User Email:</label></td>
+                 <td><input type="text" id="useremailinput" /> <br>
+                 <span id="spanemail">Not Correct Email</span></td>
+             </tr>
+            <tr>
+                
+            <td> <label>Country   :</label></td>
+            <td>
+            <select id="country" name="country" onchange="cuntryfun()">
+                <option value="1111" >Egypt</option>
+                <option value="2222">Us</option>
+                <option value="3333">Italia</option>
+                <option value="444" >AUR</option>
+                <option value="5555">Chaina</option>
+                <option value="6666">India</option>
+            </select>
+           </td></tr>
+   
+        <tr>
+            <td><label>Zip: </label></td>
+            <td><input type="text" id="zip" disabled/></td>
+        </tr>
+
+          <tr><td><lable id="userhopit">Hopites</td>
+            <td>
+            <input type="checkbox" id="Writting" class="ccc"/><label for="Writting" class="hop"> Writting</label>
+            <input type="checkbox" id="Reading" class="hop"> <label for="Reading"> Reading</label>
+            <input type="checkbox" id="sleeping" class="hop"> <label for="sleeping"> sleeping</label> 
+            <input type="checkbox" id="Swimming" class="hop"> <label for="Swimming"> Swimming</label>
+            <span id="spanhop">Choose your hopites</span></td> </tr>
+         
+           <tr>
+              <td><input type="submit"  value="Register"/> </td>
+              <td><input type="reset" value="Clear"/></td>
+           </tr>
+    
+            
+            
+        
+    
+        </form>
+
+
+
+
+
+      </table>
+   
+  </div>
+   
+</body>
+</html>
